@@ -1,5 +1,7 @@
 # Paradox
 
+TODO: Create a virtual environment
+
 ## Packages Used
 
 TODO: Convert this list to a requirements.txt file
