@@ -3,15 +3,18 @@ import wave
 from playsound import playsound
 import random
 import os
+import time
+
+# MODIFY THESE VALUES
+NO_OF_SAMPLES = 2
+seconds = 2
+filepath = "sound_data/Train/Negatives"
 
 chunk = 4096  # Record in chunks of 1024 samples
 sample_format = pyaudio.paInt24  # 16 bits per sample
 channels = 2
 fs = 44100  # Record at 44100 samples per second
-seconds = 2
-filepath = "sound_data/Dev"
-NO_OF_SAMPLES = 20
-UNIQUE_ID = input('Enter your name\n')
+UNIQUE_ID = str(int(1000 * time.time()))
 
 p = pyaudio.PyAudio()  # Create an interface to PortAudio
 
