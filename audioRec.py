@@ -11,7 +11,7 @@ seconds = 2
 filepath = "sound_data/Train/Negatives"
 
 chunk = 4096  # Record in chunks of 1024 samples
-sample_format = pyaudio.paInt24  # 16 bits per sample
+sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 2
 fs = 44100  # Record at 44100 samples per second
 UNIQUE_ID = str(int(1000 * time.time()))
