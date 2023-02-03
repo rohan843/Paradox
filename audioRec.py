@@ -6,9 +6,9 @@ import os
 import time
 
 # MODIFY THESE VALUES
-NO_OF_SAMPLES = 2
-seconds = 2
-filepath = "sound_data/Train/Negatives"
+NO_OF_SAMPLES = 20
+seconds = 1
+filepath = "sound_data/Train/Positives"
 
 chunk = 4096  # Record in chunks of 1024 samples
 sample_format = pyaudio.paInt16  # 16 bits per sample
