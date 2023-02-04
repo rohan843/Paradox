@@ -10,7 +10,7 @@ NO_OF_SAMPLES = 10
 seconds = 1
 filepath = "sound_data/Train/Positives"
 
-chunk = 4096  # Record in chunks of 1024 samples
+chunk = 1024  # Record in chunks of 1024 samples
 sample_format = pyaudio.paInt16  # 16 bits per sample
 channels = 1
 fs = 44100  # Record at 44100 samples per second
