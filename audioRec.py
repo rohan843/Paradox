@@ -8,7 +8,7 @@ import time
 # MODIFY THESE VALUES
 NO_OF_SAMPLES = 10
 seconds = 1
-filepath = "sound_data/Train/Positives"
+filepath = "sound_data/Train/Negatives"
 
 chunk = 1024  # Record in chunks of 1024 samples
 sample_format = pyaudio.paInt16  # 16 bits per sample
@@ -34,7 +34,8 @@ for sampleIdx in range(NO_OF_SAMPLES):
             data = stream.read(chunk)
             frames.append(data)
         # Save the recorded data as a WAV file
-        filename = filepath + '/paradox_' + str(UNIQUE_ID) + '_' + str(sampleIdx) + '.wav'
+        filename = filepath + '/paradox_' + \
+            str(UNIQUE_ID) + '_' + str(sampleIdx) + '.wav'
         wf = wave.open(filename, 'wb')
         wf.setnchannels(channels)
         wf.setsampwidth(p.get_sample_size(sample_format))
@@ -48,9 +49,8 @@ for sampleIdx in range(NO_OF_SAMPLES):
         if userInp == 'y':
             done = True
 
-# Stop and close the stream 
+# Stop and close the stream
 stream.stop_stream()
 stream.close()
 # Terminate the PortAudio interface
 p.terminate()
-
