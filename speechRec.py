@@ -1,6 +1,7 @@
 import pyaudio
 import wave
 import numpy as np
+import whisper
 
 class SpeechToText:
     def __init__(self, duration):
@@ -15,6 +16,7 @@ class SpeechToText:
                                   rate=self.fs,
                                   frames_per_buffer=self.chunk_size,
                                   input=True)
+        self.model = whisper.load_model("tiny")
 
     def recordAudio(self):
         frames = []
@@ -33,8 +35,8 @@ class SpeechToText:
         return "tmp.wav"
     
     def transcribeAudio(self, fname):
-        # TODO: Use PocketSphinx here
-        return ''
+        result = self.model.transcribe(fname)
+        return result["text"]
 
     def run(self):
         print('listening...')
@@ -47,4 +49,4 @@ class SpeechToText:
 
 if __name__ == '__main__':
     sttEng = SpeechToText(10)
-    print(sttEng.run())
+    print(sttEng.transcribeAudio('tests_jfk.flac'))
