@@ -42,13 +42,11 @@ class SpeechToText:
 
     def run(self):
         print('listening...')
-        input()
         audio_file = self.saveAudio()
-        print('transcribing....')
         transcription = self.transcribeAudio(audio_file)
         return transcription
     
 
 if __name__ == '__main__':
     sttEng = SpeechToText(10)
-    
+    print(sttEng.run())

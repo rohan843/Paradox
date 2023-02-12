@@ -3,6 +3,7 @@ import numpy as np
 import tensorflow as tf
 import scipy.io.wavfile
 import wave
+from speechRec import SpeechToText
 
 
 def get_spectrogram(waveform):
@@ -19,8 +20,9 @@ def get_spectrogram(waveform):
 
 
 class TriggerWordListener:
-    def __init__(self, action, thresh):
+    def __init__(self, action, paramsList: list, thresh):
         self.action = action
+        self.actionParams = paramsList
         self.model_path = 'my_model'
         self.chunk_size = 1024
         self.sample_format = pyaudio.paInt16
@@ -48,7 +50,7 @@ class TriggerWordListener:
             mfcc = self.get_mfcc_from_wf(wf)
             prob = self.get_prob_of_trigger_word(mfcc)
             if prob > self.thresh:
-                self.action()
+                self.action(self.actionParams)
 
     def get_1sec_audio(self):
         frames = []  # Initialize array to store frames
@@ -69,17 +71,16 @@ class TriggerWordListener:
         return mfcc_data
 
     def get_prob_of_trigger_word(self, mfcc):
-        # TODO: Correct shape (add axis)
         return self.model.predict(tf.reshape(mfcc, [-1, 366, 129, 1]), verbose=0)[0][0]
 
 
-def action():
-    s = ''
-    for i in range(1, 10**6):
-        s += str(i)
-    print("Paradox!")
+def action(params: list):
+    sttEngine = params[0]
+    print(sttEngine.run())
+    exit()
 
 
 if __name__ == '__main__':
-    triggerWordListener = TriggerWordListener(action, 0.97)
+    sttEngine = SpeechToText(10)
+    triggerWordListener = TriggerWordListener(action, [sttEngine], 0.97)
     triggerWordListener.run()
