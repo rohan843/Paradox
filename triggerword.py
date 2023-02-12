@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 import scipy.io.wavfile
 import wave
-from speechRec import SpeechToText
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -23,66 +22,63 @@ def get_spectrogram(waveform):
 
 class TriggerWordListener:
     def __init__(self, action, paramsList: list, thresh):
-        self.action = action
-        self.actionParams = paramsList
-        self.model_path = 'my_model'
-        self.chunk_size = 1024
-        self.sample_format = pyaudio.paInt16
-        self.channels = 1
-        self.fs = 44100
-        self.p = pyaudio.PyAudio()
-        self.stream = self.p.open(format=self.sample_format,
-                                  channels=self.channels,
-                                  rate=self.fs,
-                                  frames_per_buffer=self.chunk_size,
-                                  input=True)
-        self.thresh = thresh
-        self.seconds = 1
-        self.model = None
+        self.__action = action
+        self.__actionParams = paramsList
+        self.__model_path = 'my_model'
+        self.__chunk_size = 1024
+        self.__sample_format = pyaudio.paInt16
+        self.__channels = 1
+        self.__fs = 44100
+        self.__p = pyaudio.PyAudio()
+        self.__stream = self.__p.open(format=self.__sample_format,
+                                      channels=self.__channels,
+                                      rate=self.__fs,
+                                      frames_per_buffer=self.__chunk_size,
+                                      input=True)
+        self.__thresh = thresh
+        self.__seconds = 1
+        self.__model = None
 
-        self.load_model()
+        self.__load_model()
 
-    def load_model(self):
-        self.model = tf.keras.models.load_model(self.model_path)
+    def __load_model(self):
+        self.__model = tf.keras.models.load_model(self.__model_path)
 
     def run(self):
         while True:
-            wf = self.get_1sec_audio()
+            wf = self.__get_1sec_audio()
             wf = np.array(wf)
-            mfcc = self.get_mfcc_from_wf(wf)
-            prob = self.get_prob_of_trigger_word(mfcc)
-            if prob > self.thresh:
-                self.action(self.actionParams)
+            mfcc = self.__get_mfcc_from_wf(wf)
+            prob = self.__get_prob_of_trigger_word(mfcc)
+            if prob > self.__thresh:
+                self.__action(self.__actionParams)
 
-    def get_1sec_audio(self):
+    def __get_1sec_audio(self):
         frames = []  # Initialize array to store frames
-        for i in range(0, int(self.fs / self.chunk_size * self.seconds)):
-            data = self.stream.read(self.chunk_size)
+        for i in range(0, int(self.__fs / self.__chunk_size * self.__seconds)):
+            data = self.__stream.read(self.__chunk_size)
             frames.append(data)
         return frames
 
-    def get_mfcc_from_wf(self, wf):
+    def __get_mfcc_from_wf(self, wf):
         with wave.open("tmp.wav", "w") as f:
             f.setnchannels(1)
             f.setsampwidth(2)
-            f.setframerate(self.fs)
+            f.setframerate(self.__fs)
             f.writeframes(wf.tobytes())
         rate, data = scipy.io.wavfile.read("tmp.wav")
         spec = get_spectrogram(tf.cast(data, dtype=tf.float32))
         mfcc_data = tf.signal.mfccs_from_log_mel_spectrograms(spec)
         return mfcc_data
 
-    def get_prob_of_trigger_word(self, mfcc):
-        return self.model.predict(tf.reshape(mfcc, [-1, 366, 129, 1]), verbose=0)[0][0]
+    def __get_prob_of_trigger_word(self, mfcc):
+        return self.__model.predict(tf.reshape(mfcc, [-1, 366, 129, 1]), verbose=0)[0][0]
 
 
 def action(params: list):
-    sttEngine = params[0]
-    print(sttEngine.run())
-    exit()
+    print("Detected: Paradox")
 
 
 if __name__ == '__main__':
-    sttEngine = SpeechToText(10)
-    triggerWordListener = TriggerWordListener(action, [sttEngine], 0.97)
+    triggerWordListener = TriggerWordListener(action, [], 0.97)
     triggerWordListener.run()
