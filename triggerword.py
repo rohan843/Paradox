@@ -4,6 +4,8 @@ import tensorflow as tf
 import scipy.io.wavfile
 import wave
 from speechRec import SpeechToText
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def get_spectrogram(waveform):
