@@ -2,6 +2,8 @@ import pyaudio
 import wave
 import numpy as np
 import whisper
+import warnings
+warnings.filterwarnings("ignore")
 
 class SpeechToText:
     def __init__(self, duration):
@@ -49,4 +51,4 @@ class SpeechToText:
 
 if __name__ == '__main__':
     sttEng = SpeechToText(10)
-    print(sttEng.transcribeAudio('tests_jfk.flac'))
+    
