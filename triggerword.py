@@ -1,3 +1,8 @@
+'''
+Provides facilities to identify when a trigger word is spoken in an audio stream.
+'''
+
+
 import pyaudio
 import numpy as np
 import tensorflow as tf
@@ -21,7 +26,19 @@ def get_spectrogram(waveform):
 
 
 class TriggerWordListener:
-    def __init__(self, action, paramsList: list, thresh):
+    '''
+    Provides facility for detecting a trigger word from an audio stream. The microphone is the source of the audio
+        stream.
+    '''
+    def __init__(self, action, paramsList: list, thresh: float = 0.6):
+        '''
+        Provides facility for detecting a trigger word from an audio stream. The microphone is the source of the audio
+        stream.
+
+        :param action: A function to call when trigger word is detected.
+        :param paramsList: A list of params to pass to the action function when it is run.
+        :param thresh: The probability threshold above which the trigger word should be recognized.
+        '''
         self.__action = action
         self.__actionParams = paramsList
         self.__model_path = 'my_model'
@@ -45,6 +62,11 @@ class TriggerWordListener:
         self.__model = tf.keras.models.load_model(self.__model_path)
 
     def run(self):
+        '''
+        Captures part of an audio stream, and if trigger word detected, calls the action function.
+
+        :return: No return value.
+        '''
         while True:
             wf = self.__get_1sec_audio()
             wf = np.array(wf)
@@ -75,6 +97,7 @@ class TriggerWordListener:
         return self.__model.predict(tf.reshape(mfcc, [-1, 366, 129, 1]), verbose=0)[0][0]
 
 
+# Sample action function
 def action(params: list):
     print("Detected: Paradox")
 

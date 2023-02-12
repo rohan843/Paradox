@@ -1,3 +1,7 @@
+'''
+Provides a facility to capture and transcribe a human utterance.
+'''
+
 import pyaudio
 import wave
 import numpy as np
@@ -7,7 +11,15 @@ warnings.filterwarnings("ignore")
 
 
 class SpeechToText:
+    '''
+    Provides a facility to capture and transcribe a human utterance.
+    '''
     def __init__(self, duration):
+        '''
+        Provides a facility to capture and transcribe a human utterance.
+
+        :param duration: The amount (in seconds) for which to record user utterance.
+        '''
         self.__seconds = duration
         self.__chunk_size = 1024
         self.__sample_format = pyaudio.paInt16
