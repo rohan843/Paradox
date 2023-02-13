@@ -1,11 +1,5 @@
 import time
 
-def runAction(s: str, actions: list):
-    i = intentIdentifier.getMatchingIntentIndex(s)
-    if i == -1:
-        print('Not a supported intent')
-    else:
-        actions[i][0](actions[i][1])
 
 class IntentIdentifier:
     def __init__(self, intents: list, thresh: float = 0.5):
@@ -35,8 +29,18 @@ def turnLights(params: list):
     else:
         print('Turning lights OFF')
 
+
 def getTime(params: list):
     print('The time is', time.ctime())
+
+
+def runAction(s: str, actions: list):
+    i = intentIdentifier.getMatchingIntentIndex(s)
+    if i == -1:
+        print('Not a supported intent')
+    else:
+        actions[i][0](actions[i][1])
+
 
 if __name__ == '__main__':
     intents = [
