@@ -4,6 +4,8 @@ This is a system that can be activated via a trigger word. Based on what is said
 
 At its core, the system checks the semantic similarity between a spoken command and a predefined directive (to each of which we have associated a task), via a trained siamese network. It then matches the command to the most relevant task and executes it.
 
+Primarily, the system is intended for use in IoT applications and in low resource real time environments. 
+
 ## Usage
 
 Use [this google drive link](https://drive.google.com/drive/folders/1GzvvdAcvBkblOoGHGxLFO1L_C68BD9NR?usp=share_link) to download the 3 files: `my_model.zip`, `sentence_matching_model.zip` and `glove.6B.100d.txt`.
