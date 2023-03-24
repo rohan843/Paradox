@@ -1,8 +1,12 @@
 # DL Models (download from google drive separately)
 my_model/
+sentence_matching_model/
+
+glove.6B.100d.txt
 
 # Temporary files
 tmp.wav
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -197,14 +201,14 @@ cython_debug/
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/artifacts
-# .idea/compiler.xml
-# .idea/jarRepositories.xml
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
-# *.iml
-# *.ipr
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
 
 # CMake
 cmake-build-*/
