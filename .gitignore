@@ -2,6 +2,8 @@
 my_model/
 sentence_matching_model/
 
+sound_data/
+sound_data_old/
 glove.6B.100d.txt
 
 # Temporary files
