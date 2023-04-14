@@ -93,7 +93,10 @@ def getTime(params: list):
     print('The time is', time.ctime())
 
 
-def runAction(s: str, actions: list, defaultAction):
+def runAction(s: str, actions: list, defaultAction, intentIdentifier: IntentIdentifier):
+    '''
+    Takes in a string, and a list of actions, along with a default action. Uses the intent identifier to decide what action to run. If no action seems fit, it runs the default action.
+    '''
     i = intentIdentifier.getMatchingIntentIndex(s)
     if i == -1:
         defaultAction()

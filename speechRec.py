@@ -57,6 +57,7 @@ class SpeechToText:
         print('listening...')
         audio_file = self.__saveAudio()
         transcription = self.__transcribeAudio(audio_file)
+        print('processing...')
         return transcription
 
 
