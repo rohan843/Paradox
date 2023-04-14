@@ -9,7 +9,10 @@ TRIGGER_WORD_PROB_THRESH = 0.97
 intents = [
         'Turn on the lights',
         'Turn off the lights',
-        'What is the time?'
+        'What is the time?',
+        'Bye',
+        'Exit',
+        'Turn off'
     ]
 
 intentIdentifier = IntentIdentifier(intents)
@@ -19,6 +22,9 @@ def action(params: list):
         [lambda: print("Turning the lights ON"), []],
         [lambda: print("Turning the lights OFF"), []],
         [lambda: print("The time is", time.ctime()), []],
+        [lambda: exit(), []],
+        [lambda: exit(), []],
+        [lambda: exit(), []],
     ]
     def defaultAction():
         print('Not a supported action')

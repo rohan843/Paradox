@@ -1,6 +1,8 @@
 # DL Models (download from google drive separately)
 my_model/
+my_model.zip
 sentence_matching_model/
+sentence_matching_model.zip
 
 sound_data/
 sound_data_old/
