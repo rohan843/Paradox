@@ -31,7 +31,7 @@ class SpeechToText:
                                       rate=self.__fs,
                                       frames_per_buffer=self.__chunk_size,
                                       input=True)
-        self.__model = whisper.load_model("tiny")
+        self.__model = whisper.load_model("tiny.en")
 
     def __recordAudio(self):
         frames = []
