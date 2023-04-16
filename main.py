@@ -1,10 +1,19 @@
 from triggerword import TriggerWordListener
 from speechRec import SpeechToText
 from intentIdentifier import IntentIdentifier
-import time
+import datetime
+import pyttsx3
+engine = pyttsx3.init()
+
+
+def speak(s: str):
+    print("Paradox:", s)
+    engine.say(s)
+    engine.runAndWait()
 
 SPEECH_LISTENING_DURATION = 5
 TRIGGER_WORD_PROB_THRESH = 0.97
+USER_REQUEST_MATCHING_PROB_THRESH = 0.5
 
 intents = [
     'Turn on the lights',
@@ -15,7 +24,7 @@ intents = [
     'Turn off'
 ]
 
-intentIdentifier = IntentIdentifier(intents)
+intentIdentifier = IntentIdentifier(intents, thresh=USER_REQUEST_MATCHING_PROB_THRESH)
 
 
 def runAction(s: str, actions: list, defaultAction, intentIdentifier: IntentIdentifier):
@@ -32,16 +41,16 @@ def runAction(s: str, actions: list, defaultAction, intentIdentifier: IntentIden
 
 def action(params: list):
     actions = [
-        [lambda _: print("Turning the lights ON"), []],
-        [lambda _: print("Turning the lights OFF"), []],
-        [lambda _: print("The time is", time.ctime()), []],
+        [lambda _: speak("Turning the lights ON"), []],
+        [lambda _: speak("Turning the lights OFF"), []],
+        [lambda _: speak(f"The time is {datetime.datetime.now().strftime('%H:%M')}"), []],
         # [lambda _: exit(), []],
         [lambda _: exit(), []],
         [lambda _: exit(), []],
     ]
 
     def defaultAction():
-        print('Not a supported action')
+        speak('This is not a supported action')
 
     sttEngg = params[0]
     s = sttEngg.captureUtterance()

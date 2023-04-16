@@ -3,6 +3,7 @@ my_model/
 my_model.zip
 sentence_matching_model/
 sentence_matching_model.zip
+test.py
 
 sound_data/
 sound_data_old/
@@ -10,6 +11,7 @@ glove.6B.100d.txt
 
 # Temporary files
 tmp.wav
+tmp.mp3
 .vscode/
 
 # Byte-compiled / optimized / DLL files
